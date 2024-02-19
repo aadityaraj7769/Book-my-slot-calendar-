@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(255, 151, 65);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 1%;
+            margin: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #f87d36;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h2>Sign Up</h2>
+    
+    <form action="#" method="post" onsubmit="return validateSignUpForm()">
+        {% csrf_token %}
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirm_password" required>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href={% url "login" %}>Sign In</a></p>
+</div>
+
+<script>
+    function showSignInForm() {
+        alert("Please sign in!");
+        // You can redirect to the sign-in page or display the sign-in form dynamically.
+    }
+
+    function validateSignUpForm() {
+        var email = document.getElementById("email").value;
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (email === "" || username === "" || password === "" || confirmPassword === "") {
+            alert("Please fill in all fields");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return false;
+        }
+
+        // Add your signup logic here. For example:
+        // If the email or username is already taken, show an alert and return false.
+        // If not, you can proceed with signup.
+        // For simplicity, this example doesn't include real signup logic.
+        alert("Signup successful!");
+        return true;  // For demo purposes, always return true.
+    }
+</script>
+
+</body>
+</html>
