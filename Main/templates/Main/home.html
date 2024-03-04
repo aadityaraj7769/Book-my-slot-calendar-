@@ -1,7 +1,24 @@
-{% extends "main.html" %}
+{% extends 'main.html' %}
 
-{% block content  %}
+{% block content %}
+  <h2>Home</h2>
 
-<h3>Home tamplate</h3>
+  {% if user.is_authenticated %}
+    <h3>Your Events:</h3>
+    <ul>
+      {% for event in events %}
+        <li>{{ event.title }} - {{ event.datetime|date:"F j, Y" }} at {{ event.datetime|time:"g:i A" }} in {{ event.calendar.name }}</li>
+      {% endfor %}
+    </ul>
 
-{% endblock  %}
+    <h3>Your Calendars:</h3>
+    <ul>
+      {% for calendar in user_calendars %}
+        <li><a href="{% url 'calendar_detail' calendar.calendar.id %}">{{ calendar.calendar.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Login to track your events.</p>
+  {% endif %}
+
+  {% endblock %}

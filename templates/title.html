@@ -7,4 +7,9 @@
 {% else %}
 <a href={% url "login" %}> login </a>
 {% endif %}
+<br>
+{% if user.is_authenticated%}
+  <a href= {% url "CreateCalendar" %}> CreateCalendar </a>
+{% endif %}
 <hr>
+

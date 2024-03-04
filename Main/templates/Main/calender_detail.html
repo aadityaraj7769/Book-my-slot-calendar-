@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <h2>{{ calendar.name }} Calendar</h2>
+  <ul>
+    {% for event in events %}
+      <li>{{ event.title }} - {{ event.date }}</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'CreateEvent' calendar.id %}">Create Event</a>
+{% endblock %}
