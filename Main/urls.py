@@ -10,4 +10,6 @@ urlpatterns = [
     path('createcalender/',views.CreateCalender, name='CreateCalendar'),
     path('create_event/<int:calendar_id>/',views.CreateEvent, name='CreateEvent'),
     path('calendar_detail/<int:calendar_id>/', views.calendar_detail, name='calendar_detail'),
+    path('delete_calendar/<int:calendar_id>/', views.delete_calendar, name='delete_calendar'),
+    path('delete_event/<int:event_id>/', views.delete_event, name='delete_event'),
 ]

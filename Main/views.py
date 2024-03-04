@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -97,4 +97,16 @@ def calendar_detail(request,calendar_id):
     calendar = Calendar.objects.get(id=calendar_id)
     events = Event.objects.filter(calendar=calendar)
     context = {'calendar':calendar, 'events':events}
+
     return render(request,'Main/calender_detail.html',context)
+
+def delete_calendar(calendar_id):
+    calendar = Calendar.objects.get(id=calendar_id)
+    calendar.delete()
+    return redirect('home')
+
+def delete_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    calendar_id = event.calendar.id
+    event.delete()
+    return redirect('calendar_detail', calendar_id=calendar_id)
