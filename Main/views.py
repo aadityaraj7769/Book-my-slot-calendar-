@@ -100,7 +100,7 @@ def calendar_detail(request,calendar_id):
 
     return render(request,'Main/calender_detail.html',context)
 
-def delete_calendar(calendar_id):
+def delete_calendar(request, calendar_id):
     calendar = Calendar.objects.get(id=calendar_id)
     calendar.delete()
     return redirect('home')

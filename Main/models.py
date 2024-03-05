@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Calendar(models.Model):
+class Calendar(models.Model): #all calendars
     name = models.CharField(max_length=255)
     users = models.ManyToManyField(User, through='UserCalendar')
 
@@ -18,6 +18,6 @@ class Event(models.Model):
         return self.date_and_time.time()
     calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
 
-class UserCalendar(models.Model):
+class UserCalendar(models.Model): #calenders that are created by user
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
