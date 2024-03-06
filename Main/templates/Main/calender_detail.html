@@ -2,12 +2,18 @@
 
 {% block content %}
   <h2>{{ calendar.name }} Calendar</h2>
+  <h5>{{ calendar.description }}</h5>
   <a href = {% url "delete_calendar" calendar.id %}> Delete </a>
+  <br>
+  <a href="{% url 'edit_calendar' calendar.id %}">Edit Calendar</a>
+
   <ul>
+    <h4>Events:</h4>
     {% for event in events %}
       <li>
         {{ event.title }} - {{ event.date }}
         <a href={% url 'delete_event' event.id %}> delete </a>
+        <a href={% url 'edit_event' event.id %}>edit</a>
       
       </li>
     {% endfor %}

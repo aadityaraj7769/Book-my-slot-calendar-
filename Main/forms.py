@@ -4,7 +4,7 @@ from .models import Calendar, Event
 class CalendarForm(forms.ModelForm):
     class Meta:
         model = Calendar
-        fields = ['name']
+        fields = ['name','description']
 
 class EventForm(forms.ModelForm):
     class Meta:

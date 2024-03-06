@@ -110,3 +110,27 @@ def delete_event(request, event_id):
     calendar_id = event.calendar.id
     event.delete()
     return redirect('calendar_detail', calendar_id=calendar_id)
+
+def edit_calendar(request, calendar_id):
+    calendar = get_object_or_404(Calendar, id=calendar_id)
+
+    if request.method == 'POST':
+        form = CalendarForm(request.POST, instance=calendar)
+        if form.is_valid():
+            form.save()
+            return redirect('calendar_detail',calendar_id = calendar_id)
+    else:
+        form = CalendarForm(instance=calendar)
+    return render(request, 'Main/edit_calendar.html',{'form':form,'calendar':calendar})
+
+def edit_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect('calendar_detail',calendar_id = event.calendar.id)
+    else:
+        form = EventForm(instance=event)
+    return render(request, 'Main/edit_event.html',{'form':form,'event':event})

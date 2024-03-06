@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Calendar(models.Model): #all calendars
     name = models.CharField(max_length=255)
+    description = models.TextField(default='')
     users = models.ManyToManyField(User, through='UserCalendar')
 
 class Event(models.Model):
