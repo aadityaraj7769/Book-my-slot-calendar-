@@ -1,24 +1,54 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
-  <h2>Home</h2>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
-  {% if user.is_authenticated %}
-    <h3>Your Events:</h3>
-    <ul>
-      {% for event in events %}
-        <li>{{ event.title }} - {{ event.datetime|date:"F j, Y" }} at {{ event.datetime|time:"g:i A" }} in {{ event.calendar.name }}</li>
-      {% endfor %}
-    </ul>
+  <div class="user-info-container">
+    {% if user.is_authenticated %}
+      <div class="popup" id="userInfoPopup">
+        <p>Welcome, {{ user.username }}!</p>
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    {% else %}
+      <p>Login to track your events.</p>
+    {% endif %}
+  </div>
 
-    <h3>Your Calendars:</h3>
-    <ul>
-      {% for calendar in user_calendars %}
-        <li><a href="{% url 'calendar_detail' calendar.calendar.id %}">{{ calendar.calendar.name }}</a></li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>Login to track your events.</p>
-  {% endif %}
+  <div class="box events-box">
+    <h2>Home</h2>
 
-  {% endblock %}
+    {% if user.is_authenticated %}
+      <div class="box">
+        <h3>Your Events:</h3>
+        <ul>
+          {% for event in events %}
+            <li>{{ event.title }} - {{ event.datetime|date:"F j, Y" }} at {{ event.datetime|time:"g:i A" }} in {{ event.calendar.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="box calendars-box">
+        <h3>Your Calendars:</h3>
+        <ul>
+          {% for calendar in user_calendars %}
+            <li><a href="{% url 'calendar_detail' calendar.calendar.id %}">{{ calendar.calendar.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <p>Login to track your events.</p>
+    {% endif %}
+  </div>
+
+  <script>
+    window.onclick = function(event) {
+      var popup = document.getElementById("userInfoPopup");
+      if (event.target !== popup && !event.target.matches('.user-info')) {
+        if (popup.classList.contains('show')) {
+          popup.classList.remove('show');
+        }
+      }
+    }
+  </script>
+{% endblock %}

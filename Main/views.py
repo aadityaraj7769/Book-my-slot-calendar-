@@ -96,7 +96,14 @@ def CreateEvent(request,calendar_id):
 def calendar_detail(request,calendar_id):
     calendar = Calendar.objects.get(id=calendar_id)
     events = Event.objects.filter(calendar=calendar)
-    context = {'calendar':calendar, 'events':events}
+    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    time_slots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
+    context = {
+        'calendar':calendar,
+        'events':events,
+        'days':days,
+        'time_slots':time_slots
+        }
 
     return render(request,'Main/calender_detail.html',context)
 

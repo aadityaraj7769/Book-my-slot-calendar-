@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.apps import apps
 
 # Create your models here.
+
+# AdminUsers = apps.get_model('Main', 'AdminUsers')
 
 class Calendar(models.Model): #all calendars
     name = models.CharField(max_length=255)
@@ -11,6 +14,8 @@ class Calendar(models.Model): #all calendars
 class Event(models.Model):
     title = models.CharField(max_length=255)
     date_and_time = models.DateTimeField()
+    duration = models.IntegerField(default=10)
+    venue = models.CharField(max_length=255, default= '')
 
     def date(self):
         return self.date_and_time.date()
