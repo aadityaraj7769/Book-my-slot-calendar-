@@ -1,0 +1,51 @@
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+}
+
+.box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.events-box {
+  background-color: #ffcc80; /* Light orange for events box */
+}
+
+.calendars-box {
+  background-color: #ffb74d; /* Darker orange for calendars box */
+}
+
+/* Adjusted styles for user info */
+.user-info-container {
+  position: relative;
+}
+
+.user-info {
+  cursor: pointer;
+  position: absolute;
+  top: 10px; /* Adjusted top position */
+  right: 10px; /* Adjusted right position */
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+.popup {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.popup.show {
+  display: block;
+}

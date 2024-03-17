@@ -1,0 +1,44 @@
+<!--{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+  <h2>{{ calendar.name }} Calendar</h2>
+  <h5>{{ calendar.description }}</h5>
+  <div class="nav-buttons">
+    <button class="orange-button" onclick="window.location.href='{% url "delete_calendar" calendar.id %}'">Delete</button>
+    <button class="orange-button" onclick="window.location.href='{% url 'edit_calendar' calendar.id %}'">Edit Calendar</button>
+  </div>
+
+  <div class="calendar">
+    <div class="calendar-header">
+      <div class="header-cell">Time</div>
+      {% for day in days %}
+        <div class="header-cell">{{ day }}</div>
+      {% endfor %}
+    </div>
+    <div class="calendar-body">
+      {% for time_slot in time_slots %}
+        <div class="row">
+          <div class="time-cell">{{ time_slot }}</div>
+          {% for day in days %}
+            <div class="day-cell">
+               {% for event in events %}
+                  {%with event_day=event.date|date:"D" event_start_time=event.time|time:"H:00"%}
+                    {% if event_day == day and event_start_time == time_slot %}
+                      <div class="event" style="height: {{ event.duration }}px;">
+                        {{ event.title }}
+                        <a href="{% url 'delete_event' event.id %}">delete</a>
+                        <a href="{% url 'edit_event' event.id %}">edit</a>
+                      </div>
+                    {% endif %}
+                  {%endwith%}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <a href="{% url 'CreateEvent' calendar.id %}">Create Event</a>
+{% endblock %}
