@@ -32,7 +32,7 @@
         <h3>Your Calendars:</h3>
         <ul>
           {% for calendar in user_calendars %}
-            <li><a href="{% url 'calendar_detail' calendar.calendar.id %}">{{ calendar.calendar.name }}</a></li>
+            <li><a href="{% url 'calendar_detail' calendar.id %}">{{ calendar.name }}</a></li>
           {% endfor %}
         </ul>
       </div>

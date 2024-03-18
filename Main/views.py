@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from .models import Calendar, Event, UserCalendar
 from .forms import CalendarForm, EventForm
-from datetime import datetime
+from datetime import datetime, timedelta, date
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
 
@@ -13,7 +13,7 @@ from django.contrib.auth.models import AnonymousUser
 # Create your views here.
 
 def home(request):
-    if request.user.is_authenticated:   
+    if request.user.is_authenticated: 
        user_calendars = UserCalendar.objects.filter(user=request.user)
        events = Event.objects.filter(calendar__in=user_calendars.values('calendar'))
        user_created_calendars = Calendar.objects.filter(users=request.user)
@@ -94,15 +94,29 @@ def CreateEvent(request,calendar_id):
         return render(request,'Main/CreateEvent.html',context)
 
 def calendar_detail(request,calendar_id):
+    today = date.today()
+    if today.weekday() == 0:
+        start_of_week = today
+    else:
+        start_of_week = today - timedelta(days=today.weekday())
+    end_of_week = start_of_week + timedelta(days=6)
     calendar = Calendar.objects.get(id=calendar_id)
     events = Event.objects.filter(calendar=calendar)
-    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+
+    offset_weeks = int(request.GET.get('offset', 0))  # Get offset from query string
+    if offset_weeks != 0:
+        start_of_week += timedelta(days=offset_weeks * 7)
+        end_of_week = start_of_week + timedelta(days=6)
+    
     time_slots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
     context = {
         'calendar':calendar,
         'events':events,
         'days':days,
-        'time_slots':time_slots
+        'time_slots':time_slots,
+        'start_of_week':start_of_week,
+        'end_of_week':end_of_week,
         }
 
     return render(request,'Main/calender_detail.html',context)

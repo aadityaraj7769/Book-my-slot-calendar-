@@ -17,8 +17,7 @@ class Event(models.Model):
     title = models.CharField(max_length=255)
     date_and_time = models.DateTimeField()
     duration = models.IntegerField(default=10)
-    admin_user = models.ForeignKey(AdminUsers, on_delete=models.CASCADE, null = True)
-    venue = models.CharField(max_length=255, default= null = True)
+    venue = models.CharField(max_length=255, null = True)
     calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
 
     def date(self):

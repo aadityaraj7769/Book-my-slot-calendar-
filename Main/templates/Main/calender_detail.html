@@ -9,7 +9,11 @@
     <button onclick="window.location='{% url 'delete_calendar' calendar.id %}'">Delete</button>
     <button onclick="window.location='{% url 'edit_calendar' calendar.id %}'">Edit Calendar</button>
   </div>
-  
+
+  <div class="nav-buttons">
+    <a href="{% url 'calendar_detail' calendar.id %}">Current Week</a>
+    <a href="{% url 'calendar_detail' calendar.id %}?offset=1">Next Week</a>
+  </div>
 
   <div class="calendar">
     <div class="calendar-header">
@@ -26,7 +30,7 @@
             <div class="day-cell">
                {% for event in events %}
                   {% with event_day=event.date|date:"D" event_start_time=event.time|time:"H:00" %}
-                    {% if event_day == day and event_start_time == time_slot %}
+                    {% if event_day == day and event_start_time == time_slot and event.date >= start_of_week and event.date <= end_of_week %}
                       <div class="event" style="height: {{ event.duration }}px;">
                         {{ event.title }}
                         <a href="{% url 'delete_event' event.id %}">delete</a>
