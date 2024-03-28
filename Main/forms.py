@@ -9,7 +9,7 @@ class CalendarForm(forms.ModelForm):
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['title','date','time']
+        fields = ['title','date','time','venue']
 
     date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type':'time'}))
